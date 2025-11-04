@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Roblox Clone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Verdana, sans-serif;
+            background: #e2e2e2;
+        }
+        header {
+            background: #002b5c;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #001f40;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.2s ease;
+        }
+        nav a:hover {
+            border-bottom: 2px solid white;
+        }
+        .tab {
+            display: none;
+            padding: 20px;
+        }
+        .active {
+            display: block;
+        }
+
+        /* --- Robux Display --- */
+        .robux-display {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            color: #ffd700; /* Gold color for Robux */
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .robux-icon {
+            width: 20px;
+            height: 20px;
+            background-color: #ffd700; /* Gold */
+            border-radius: 50%; /* Circle for icon */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: #8B4513; /* Brown for 'R' */
+            font-family: 'Arial Black', sans-serif;
+        }
+
+
+        /* --- Home Page Specific Styles --- */
+        .home-content {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            align-items: flex-start;
+        }
+
+        .left-column {
+            flex-shrink: 0;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .member-login-box {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .member-login-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.1em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+        .member-login-box label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .member-login-box input[type="text"],
+        .member-login-box input[type="password"] {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .member-login-box button {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.2s ease;
+        }
+        .member-login-box button:hover {
+            background: #0055aa;
+        }
+        .member-login-box .forgot-password,
+        .member-login-box .sign-up-link {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+        .member-login-box .forgot-password a,
+        .member-login-box .sign-up-link a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        .member-login-box .forgot-login-link:hover,
+        .member-login-box .sign-up-link a:hover {
+            text-decoration: underline;
+        }
+        .member-login-box .logout-button {
+            background: #d9534f;
+        }
+        .member-login-box .logout-button:hover {
+            background: #c9302c;
+        }
+
+        .get-robux-box {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .get-robux-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.1em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+        .get-robux-box button {
+            background: #00aaff; /* Roblox blue for Robux */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+        .get-robux-box button:hover {
+            background: #0088cc;
+        }
+
+
+        .home-ad-banner {
+            width: 100%;
+            height: 90px;
+            background: #aaa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .home-ad-banner img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .home-ad-banner .play-button {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+        .home-ad-banner .play-button:hover {
+            background: #0055aa;
+        }
+
+        .main-content-home {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .featured-video-box {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .featured-video-box .video-placeholder {
+            width: 320px;
+            height: 240px;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+        .featured-video-box .play-now-button {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            border: 3px solid #388E3C;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+        .featured-video-box .play-now-button:hover {
+            background: #5CB85C;
+            transform: scale(1.02);
+        }
+
+        .roblox-news-box {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            min-height: 150px;
+        }
+        .roblox-news-box h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.1em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+        .roblox-news-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .roblox-news-box ul li {
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .roblox-news-box ul li a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        .roblox-news-box ul li a:hover {
+            text-decoration: underline;
+        }
+
+
+        .featured-game-box {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .featured-game-box h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.2em;
+            width: 100%;
+        }
+        .featured-game-box .game-image {
+            flex-shrink: 0;
+            width: 300px;
+            height: 200px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .featured-game-box .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .featured-game-box .game-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .featured-game-box .game-details h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+        .featured-game-box .game-details p {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .featured-game-box .game-details .play-button-small {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: fit-content;
+            transition: background 0.2s ease;
+        }
+        .featured-game-box .game-details .play-button-small:hover {
+            background: #0055aa;
+        }
+
+        /* --- Avatar Editor Styles --- */
+        .avatar-editor-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .avatar-tools {
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .hat-button-container {
+            background: #e00000; /* Default red for hat buttons */
+            border-radius: 8px;
+            padding: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 120px;
+            opacity: 1; /* Default to visible */
+        }
+        .hat-button-container[data-color="blue"] { background: #0000e0; }
+        .hat-button-container[data-color="green"] { background: #00e000; }
+        .hat-button-container[data-type="none"] { background: #888; } /* For 'No Hat' */
+
+        .hat-button-container:hover {
+            background: #b30000;
+            transform: scale(1.03);
+        }
+        .hat-button-container[data-color="blue"]:hover { background: #0000b3; }
+        .hat-button-container[data-color="green"]:hover { background: #00b300; }
+        .hat-button-container[data-type="none"]:hover { background: #666; }
+
+        /* Styles for unowned items */
+        .hat-button-container.owned-false {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border: 2px dashed #999;
+            pointer-events: none; /* Crucial for disabling clicks */
+        }
+        .hat-button-container.owned-false:hover {
+             transform: none; /* Prevent scale on hover if not owned */
+             /* Maintain original background color for disabled items on hover */
+             background: var(--original-bg-color); /* Set this via JS or more specific CSS */
+        }
+        /* Specific hover styles for unowned state to revert to original color */
+        .hat-button-container.owned-false[data-color="red"]:hover { background: #e00000; }
+        .hat-button-container.owned-false[data-color="blue"]:hover { background: #0000e0; }
+        .hat-button-container.owned-false[data-color="green"]:hover { background: #00e000; }
+        .hat-button-container.owned-false[data-type="none"]:hover { background: #888; } /* Not strictly needed for 'none' as it's always owned, but good for consistency */
+
+
+        .hat-button-container canvas {
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+            background: #f0f0f0;
+            width: 90px;
+            height: 90px;
+        }
+        .hat-button-container span {
+            color: white;
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 0.8em;
+        }
+        .avatar-action-button {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 10px;
+        }
+        .avatar-action-button:hover {
+            background: #333;
+        }
+        canvas#avatarCanvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            /* Updated background and shadow for improved 2D avatar */
+            background: radial-gradient(circle at 70% 30%, #aaddff, #6699cc); /* Softer blue gradient */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        /* --- Games Page Styles --- */
+        .games-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            align-items: flex-start;
+        }
+
+        .games-sidebar {
+            width: 200px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        .games-sidebar h3 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .games-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .games-sidebar ul li a {
+            display: block;
+            padding: 5px 0;
+            color: #0077cc;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .games-sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+        .games-sidebar .category-list {
+            margin-top: 15px;
+        }
+        .games-sidebar .category-list h4 {
+            color: #555;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .games-content {
+            flex-grow: 1;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .games-tabs {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        .games-tabs button {
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #666;
+            transition: color 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .games-tabs button.active-game-tab {
+            color: #002b5c;
+            border-bottom: 2px solid #002b5c;
+        }
+        .games-tabs button:hover {
+            color: #000;
+        }
+
+        .games-search {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+        .games-search input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+        .games-search button {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .games-search button:hover {
+            background: #0055aa;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        /* Styling for game cards - generic 2012-like look, refine with user input */
+        .game-card {
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Slightly more prominent shadow */
+            text-align: center;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            position: relative;
+            padding-bottom: 60px; /* Space for button at bottom */
+        }
+        .game-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .game-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid #eee;
+            /* Simple border for 2012 look */
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        .game-card .game-title {
+            font-weight: bold;
+            margin: 10px 5px 5px;
+            color: #333;
+            font-size: 0.95em;
+            height: 38px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .game-card .game-players {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 10px; /* Space above play button */
+        }
+        .game-card .game-actions {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            padding: 0 10px;
+        }
+        .game-card .play-button {
+            display: block;
+            width: calc(100% - 20px); /* Adjust width for padding */
+            background: #00aaff; /* Classic Roblox blue */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none; /* For the <a> tag */
+            transition: background 0.2s ease;
+            font-size: 0.9em;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.2); /* Button shadow */
+        }
+        .game-card .play-button:hover {
+            background: #0088cc; /* Darker blue on hover */
+        }
+
+        .game-pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .game-pagination button {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+        .game-pagination button:hover {
+            background: #0055aa;
+        }
+        .game-pagination span {
+            font-size: 0.9em;
+            color: #555;
+            margin: 0 10px;
+        }
+
+        /* --- Catalog Page Styles --- */
+        .catalog-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .catalog-container h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .catalog-item-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            background: #fdfdfd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            position: relative;
+        }
+        .catalog-item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .catalog-item-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain; /* Keep aspect ratio, fit inside */
+            background: #f0f0f0;
+            border-bottom: 1px solid #eee;
+        }
+        .catalog-item-card .item-details {
+            padding: 10px;
+        }
+        .catalog-item-card .item-name {
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-bottom: 5px;
+            color: #333;
+            height: 40px; /* Fixed height for name */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .catalog-item-card .item-price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #ffd700; /* Gold for Robux */
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .catalog-item-card .item-price .robux-icon {
+            width: 18px;
+            height: 18px;
+            font-size: 0.7em;
+            margin-right: 3px;
+        }
+        .catalog-item-card .buy-button {
+            background: #00aaff; /* Classic Roblox blue */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            transition: background 0.2s ease;
+        }
+        .catalog-item-card .buy-button:hover {
+            background: #0088cc;
+        }
+        .catalog-item-card .buy-button.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .catalog-item-card .owned-tag {
+            background: #4CAF50;
+            color: white;
+            font-size: 0.8em;
+            padding: 3px 8px;
+            border-radius: 5px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-weight: bold;
+        }
+
+
+        /* --- Profile Page Styles --- */
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .profile-section {
+            width: 100%;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .profile-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .profile-section h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+        .profile-avatar-preview {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background: #f0f0f0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            margin: 10px auto;
+            display: block; /* Ensures it's centered */
+        }
+        .profile-inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .profile-inventory-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+            font-size: 0.8em;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            background: #f9f9f9;
+        }
+        .profile-inventory-item img {
+            max-width: 80%;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+        /* --- Friends Page Styles --- */
+        .friends-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .friends-container h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .friends-section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .friends-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .friends-section h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .friend-list {
+            list-style: none;
+            padding: 0;
+        }
+        .friend-list li {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .friend-list li span {
+            font-weight: bold;
+            color: #333;
+        }
+        .friend-list li button {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+        .friend-list li button:hover {
+            background: #c9302c;
+        }
+        .add-friend-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .add-friend-form input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .add-friend-form button {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .add-friend-form button:hover {
+            background: #0055aa;
+        }
+        /* --- Chat Page Styles --- */
+        .chat-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 600px; /* Fixed height for chat window */
+        }
+        .chat-container h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            overflow-y: auto;
+            background: #fcfcfc;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .chat-message {
+            background: #e1ffc7; /* Light green for sent messages */
+            padding: 8px 12px;
+            border-radius: 15px;
+            max-width: 80%;
+            align-self: flex-end; /* Sent messages align right */
+            word-wrap: break-word;
+            font-size: 0.95em;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .chat-message.received {
+            background: #dcf8c6; /* Lighter green for received (not implemented in this version) */
+            align-self: flex-start; /* Received messages align left */
+        }
+        .chat-message .username {
+            font-weight: bold;
+            font-size: 0.85em;
+            color: #002b5c;
+            margin-bottom: 2px;
+        }
+        .chat-input-form {
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input-form input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .chat-input-form button {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s ease;
+        }
+        .chat-input-form button:hover {
+            background: #0055aa;
+        }
+        footer {
+            background: #dcdcdc;
+            text-align: center;
+            font-size: 13px;
+            padding: 15px;
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+        }
+        footer a {
+            margin: 0 8px;
+            text-decoration: none;
+            color: #333;
+        }
+        /* Message Box Styles */
+        #messageBox {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50; /* Green for success */
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #messageBox.error {
+            background-color: #f44336; /* Red for error */
+        }
+    </style>
+</head>
+<body>
+    <div id="messageBox"></div>
+    <header>
+        <h1>ROBLOX</h1>
+        <nav>
+            <a href="#" id="homeNavLink">Home</a>
+            <a href="#" id="gamesNavLink">Games</a>
+            <a href="#" id="avatarNavLink">Avatar</a>
+            <a href="#" id="catalogNavLink">Catalog</a>
+            <a href="#" id="profileNavLink">Profile</a>
+            <a href="#" id="friendsNavLink">Friends</a>
+            <a href="#" id="chatNavLink">Chat</a>
+        </nav>
+        <div class="robux-display">
+            <span class="robux-icon">R</span>
+            <span id="robuxBalance">0</span>
+        </div>
+    </header>
+
+    <main>
+        <div id="homeTab" class="tab active">
+            <div class="home-content">
+                <div class="left-column">
+                    <div class="member-login-box">
+                        <div id="loggedInSection" style="display: none;">
+                            <h3>Welcome, <span id="loggedInUsername"></span>!</h3>
+                            <p>Current Robux: <span id="displayRobuxBalance"></span></p>
+                            <button class="member-login-button logout-button" id="logoutButton">Log Out</button>
+                        </div>
+                        <div id="loggedOutSection">
+                            <h3>Member Login</h3>
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" placeholder="Enter your username">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" placeholder="Enter your password">
+                            <button class="member-login-button" id="loginButton">Login</button>
+                            <div class="forgot-password"><a href="#">Forgot password?</a></div>
+                            <div class="sign-up-link">Don't have an account? <a href="#">Sign Up</a></div>
+                        </div>
+                    </div>
+                    <div class="get-robux-box">
+                        <h3>Get Robux</h3>
+                        <p>Earn more Robux to customize your avatar and play games!</p>
+                        <button id="getRobuxButton">Get Robux Now!</button>
+                    </div>
+                </div>
+                <div class="main-content-home">
+                    <div class="home-ad-banner">
+                        <img src="https://via.placeholder.com/728x90?text=Roblox+Ad+Banner" alt="Advertisement">
+                        </div>
+
+                    <div class="featured-video-box">
+                        <div class="video-placeholder">Featured Video</div>
+                        <div>
+                            <h3>Explore the Latest Games!</h3>
+                            <p>Check out our newest and most popular games. Join millions of players and start your adventure today!</p>
+                            <button class="play-now-button">Play Now</button>
+                        </div>
+                    </div>
+
+                    <div class="roblox-news-box">
+                        <h3>Roblox News</h3>
+                        <ul>
+                            <li><a href="#">New Event: The Great Blox Hunt!</a></li>
+                            <li><a href="#">Developer Spotlight: Builderman's Creations</a></li>
+                            <li><a href="#">Upcoming Features: Dynamic Lighting</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="featured-game-box">
+                        <div class="game-image">
+                            <img src="https://via.placeholder.com/300x200?text=Featured+Game" alt="Featured Game Thumbnail">
+                        </div>
+                        <div class="game-details">
+                            <h3>Mega Obby Madness</h3>
+                            <p>Jump, climb, and race your way through the most challenging obby ever created! Can you reach the end?</p>
+                            <button class="play-button-small">Play Game</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gamesTab" class="tab">
+            <div class="games-container">
+                <div class="games-sidebar">
+                    <h3>Game Categories</h3>
+                    <ul class="category-list">
+                        <li><a href="#" data-category="All">All Games</a></li>
+                        <li><a href="#" data-category="Adventure">Adventure</a></li>
+                        <li><a href="#" data-category="Tycoon">Tycoon</a></li>
+                        <li><a href="#" data-category="Simulator">Simulator</a></li>
+                        <li><a href="#" data-category="Obby">Obby</a></li>
+                        <li><a href="#" data-category="Roleplaying">Roleplaying</a></li>
+                    </ul>
+                    <ul class="category-list" style="margin-top: 20px;">
+                        <li><a href="#" data-category="Popular">Popular</a></li>
+                        <li><a href="#" data-category="Top Rated">Top Rated</a></li>
+                        <li><a href="#" data-category="Recommended">Recommended</a></li>
+                    </ul>
+                    <button id="uploadGameButton" style="background-color: #00aaff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 20px; width: 100%; font-weight: bold;">Upload Game</button>
+                    <input type="file" id="gameFileUpload" accept=".zip,.rblx" style="display: none;">
+                </div>
+                <div class="games-content">
+                    <div class="games-tabs">
+                        <button id="popularGamesTabButton" class="active-game-tab">Popular</button>
+                        <button id="topRatedGamesTabButton">Top Rated</button>
+                        <button id="friendsPlayingTabButton">Friends Playing</button>
+                        <button id="myGamesTabButton">My Games</button>
+                    </div>
+                    <div class="games-search">
+                        <input type="text" id="gameSearchInput" placeholder="Search games...">
+                        <button id="searchGamesButton">Search</button>
+                    </div>
+                    <div class="game-grid" id="gameGrid">
+                        </div>
+                    <div class="game-pagination">
+                        <button id="prevPageButton">Previous</button>
+                        <span id="pageInfo">Page 1 of 1</span>
+                        <button id="nextPageButton">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="avatarTab" class="tab">
+            <div class="avatar-editor-container">
+                <h2>Avatar Editor</h2>
+                <canvas id="avatarCanvas" width="200" height="300"></canvas>
+                <div class="avatar-tools">
+                    <div class="hat-button-container" data-type="none">
+                        <canvas class="hat-preview-canvas" width="90" height="90"></canvas>
+                        <span>No Hat</span>
+                    </div>
+                    <div class="hat-button-container" data-id="red_top_hat" data-color="red" data-price="50">
+                        <canvas class="hat-preview-canvas" width="90" height="90"></canvas>
+                        <span>Red Top Hat</span>
+                    </div>
+                    <div class="hat-button-container" data-id="blue_cap" data-color="blue" data-price="75">
+                        <canvas class="hat-preview-canvas" width="90" height="90"></canvas>
+                        <span>Blue Cap</span>
+                    </div>
+                    <div class="hat-button-container" data-id="green_beanie" data-color="green" data-price="60">
+                        <canvas class="hat-preview-canvas" width="90" height="90"></canvas>
+                        <span>Green Beanie</span>
+                    </div>
+                    <div class="hat-button-container" data-id="yellow_fedora" data-color="yellow" data-price="90">
+                        <canvas class="hat-preview-canvas" width="90" height="90"></canvas>
+                        <span>Yellow Fedora</span>
+                    </div>
+                    <div class="hat-button-container" data-id="purple_party_hat" data-color="purple" data-price="40">
+                        <canvas class="hat-preview-canvas" width="90" height="90"></canvas>
+                        <span>Party Hat</span>
+                    </div>
+                </div>
+                <button id="saveAvatarButton" class="avatar-action-button">Save Avatar</button>
+            </div>
+        </div>
+
+        <div id="catalogTab" class="tab">
+            <div class="catalog-container">
+                <h2>Catalog</h2>
+                <div class="catalog-grid" id="catalogGrid">
+                    </div>
+            </div>
+        </div>
+
+        <div id="profileTab" class="tab">
+            <div class="profile-container">
+                <div class="profile-section">
+                    <h3><span id="profileUsernameDisplay"></span>'s Profile</h3>
+                    <canvas id="profileAvatarPreview" class="profile-avatar-preview" width="200" height="200"></canvas>
+                    <p>Robux Balance: <span id="profileRobuxBalance"></span></p>
+                </div>
+                <div class="profile-section">
+                    <h3>My Inventory</h3>
+                    <div class="profile-inventory-grid" id="profileInventoryGrid">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="friendsTab" class="tab">
+            <div class="friends-container">
+                <h2>Friends</h2>
+                <div class="friends-section">
+                    <h3>My Friends (<span id="friendsCount">0</span>)</h3>
+                    <ul class="friend-list" id="myFriendList">
+                        </ul>
+                </div>
+                <div class="friends-section">
+                    <h3>Add Friend</h3>
+                    <div class="add-friend-form">
+                        <input type="text" id="addFriendInput" placeholder="Enter username">
+                        <button id="addFriendButton">Add Friend</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="chatTab" class="tab">
+            <div class="chat-container">
+                <h2>Chat</h2>
+                <div class="chat-messages" id="chatMessages">
+                    </div>
+                <form class="chat-input-form" id="chatInputForm">
+                    <input type="text" id="chatMessageInput" placeholder="Type a message..." autocomplete="off">
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Roblox Clone. All rights reserved.</p>
+        <p>
+            <a href="#">About Us</a> |
+            <a href="#">Contact</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script>
+        // --- Utility Functions ---
+        function showMessage(message, isSuccess = true) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.className = isSuccess ? '' : 'error'; // Clear previous classes, add 'error' if needed
+            messageBox.style.display = 'block';
+            messageBox.style.opacity = 1;
+
+            setTimeout(() => {
+                messageBox.style.opacity = 0;
+                messageBox.addEventListener('transitionend', function handler() {
+                    messageBox.style.display = 'none';
+                    messageBox.removeEventListener('transitionend', handler);
+                });
+            }, 3000);
+        }
+
+        // --- Tab Navigation ---
+        const tabLinks = document.querySelectorAll('nav a');
+        const tabs = document.querySelectorAll('.tab');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetTabId = e.target.id.replace('NavLink', 'Tab');
+
+                tabs.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                tabLinks.forEach(navLink => {
+                    navLink.classList.remove('active'); // Remove active class from nav links
+                });
+
+                document.getElementById(targetTabId).classList.add('active');
+                e.target.classList.add('active'); // Add active class to clicked nav link
+
+                // Special handling for initial loads when tabs are switched
+                if (targetTabId === 'gamesTab') {
+                    loadGames(); // Ensure games are loaded/reloaded when Games tab is shown
+                } else if (targetTabId === 'profileTab') {
+                    loadProfile(); // Reload profile to update avatar and inventory
+                } else if (targetTabId === 'catalogTab') {
+                    renderCatalog(); // Re-render catalog to ensure ownership status is correct
+                } else if (targetTabId === 'friendsTab') {
+                    renderFriends(); // Re-render friends list
+                } else if (targetTabId === 'chatTab') {
+                    renderChatMessages(); // Re-render chat messages
+                } else if (targetTabId === 'avatarTab') {
+                    drawAvatar(); // Redraw avatar when avatar tab is active
+                }
+            });
+        });
+
+        // Set initial active tab (Home)
+        document.getElementById('homeNavLink').click();
+
+
+        // --- User Authentication (Simplified) ---
+        let currentUser = null; // Stores current logged-in user's data
+
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        const loginButton = document.getElementById('loginButton');
+        const logoutButton = document.getElementById('logoutButton');
+        const loggedInSection = document.getElementById('loggedInSection');
+        const loggedOutSection = document.getElementById('loggedOutSection');
+        const loggedInUsernameSpan = document.getElementById('loggedInUsername');
+        const displayRobuxBalanceSpan = document.getElementById('displayRobuxBalance');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+
+        function saveUsers() {
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        function loadCurrentUser() {
+            const storedUser = localStorage.getItem('currentUser');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                updateLoginUI();
+            } else {
+                updateLoginUI(); // No user logged in
+            }
+        }
+
+        function updateLoginUI() {
+            if (currentUser) {
+                loggedInSection.style.display = 'block';
+                loggedOutSection.style.display = 'none';
+                loggedInUsernameSpan.textContent = currentUser.username;
+                loadRobuxBalance(); // Update Robux display for logged in user
+            } else {
+                loggedInSection.style.display = 'none';
+                loggedOutSection.style.display = 'block';
+                // Clear input fields
+                usernameInput.value = '';
+                passwordInput.value = '';
+            }
+        }
+
+        loginButton.addEventListener('click', () => {
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            if (users[username] && users[username].password === password) {
+                currentUser = { username: username, robux: users[username].robux, ownedItems: users[username].ownedItems || [], avatar: users[username].avatar || {}, friends: users[username].friends || [] };
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                showMessage('Login successful!');
+                updateLoginUI();
+                loadRobuxBalance(); // Update Robux balance on login
+                initAvatarEditor(); // Initialize/re-initialize avatar editor for the logged-in user
+                loadProfile(); // Load profile data after login
+                renderCatalog(); // Re-render catalog after login to show owned items
+                renderFriends(); // Re-render friends list
+            } else {
+                // Simplified registration if user doesn't exist
+                if (username && password) {
+                    users[username] = { password: password, robux: 100, ownedItems: ['no_hat'], avatar: {}, friends: [] }; // Give new users 100 Robux and 'no_hat'
+                    saveUsers();
+                    currentUser = { username: username, robux: users[username].robux, ownedItems: users[username].ownedItems, avatar: users[username].avatar, friends: users[username].friends };
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    showMessage('Account created and logged in!');
+                    updateLoginUI();
+                    loadRobuxBalance();
+                    initAvatarEditor();
+                    loadProfile();
+                    renderCatalog();
+                    renderFriends();
+                } else {
+                    showMessage('Please enter both username and password.', false);
+                }
+            }
+        });
+
+        logoutButton.addEventListener('click', () => {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showMessage('Logged out successfully!');
+            updateLoginUI();
+            updateRobuxDisplay(0); // Clear Robux display on logout
+            // Optionally clear avatar and other user-specific data from UI
+            drawAvatar(); // Draw default avatar when logged out
+            renderCatalog(); // Clear catalog ownership
+            renderFriends(); // Clear friends list
+            document.getElementById('profileUsernameDisplay').textContent = 'Guest';
+            document.getElementById('profileRobuxBalance').textContent = 'N/A';
+            document.getElementById('profileInventoryGrid').innerHTML = '';
+        });
+
+        // --- Robux Management ---
+        const robuxBalanceSpan = document.getElementById('robuxBalance');
+        const getRobuxButton = document.getElementById('getRobuxButton');
+
+        function loadRobuxBalance() {
+            if (currentUser) {
+                // Ensure currentUser.robux is up-to-date with 'users' object
+                currentUser.robux = users[currentUser.username].robux;
+                updateRobuxDisplay(currentUser.robux);
+                displayRobuxBalanceSpan.textContent = currentUser.robux; // For Home tab display
+            } else {
+                updateRobuxDisplay(0); // Show 0 if not logged in
+                displayRobuxBalanceSpan.textContent = 'N/A';
+            }
+        }
+
+        function updateRobuxDisplay(balance) {
+            robuxBalanceSpan.textContent = balance;
+        }
+
+        getRobuxButton.addEventListener('click', () => {
+            if (currentUser) {
+                // Simulate getting Robux
+                currentUser.robux += 500;
+                users[currentUser.username].robux = currentUser.robux; // Update in main users object
+                saveUsers();
+                localStorage.setItem('currentUser', JSON.stringify(currentUser)); // Update current user in local storage
+                loadRobuxBalance();
+                showMessage('500 Robux added to your account!');
+            } else {
+                showMessage('Please log in to get Robux!', false);
+            }
+        });
+
+
+        // --- Avatar Editor ---
+        const avatarCanvas = document.getElementById('avatarCanvas');
+        const avatarCtx = avatarCanvas.getContext('2d');
+        const saveAvatarButton = document.getElementById('saveAvatarButton');
+        const hatButtonsContainer = document.querySelector('.avatar-tools');
+
+        let currentAvatar = {
+            hatId: 'no_hat', // Default to no hat
+            color: 'default' // Default color if needed for base avatar
+        };
+
+        // Redefine hatsData to include shape drawing instructions instead of imageUrl
+        const hatsData = {
+            'no_hat': { name: 'No Hat', price: 0, drawShape: (ctx, x, y, size) => { /* do nothing */ }, owned: true },
+            'red_top_hat': {
+                name: 'Red Top Hat', price: 50, color: 'red',
+                drawShape: (ctx, x, y, size) => {
+                    ctx.fillStyle = '#CC0000'; // Darker red
+                    // Brim
+                    ctx.fillRect(x - size * 0.4, y + size * 0.2, size * 0.8, size * 0.1);
+                    // Crown
+                    ctx.fillRect(x - size * 0.25, y - size * 0.3, size * 0.5, size * 0.5);
+                }
+            },
+            'blue_cap': {
+                name: 'Blue Cap', price: 75, color: 'blue',
+                drawShape: (ctx, x, y, size) => {
+                    ctx.fillStyle = '#0000CC'; // Darker blue
+                    // Cap base
+                    ctx.fillRect(x - size * 0.35, y - size * 0.1, size * 0.7, size * 0.3);
+                    // Brim (rounded)
+                    ctx.beginPath();
+                    ctx.arc(x - size * 0.35, y + size * 0.2, size * 0.2, Math.PI / 2, Math.PI * 3 / 2, true);
+                    ctx.lineTo(x + size * 0.35, y + size * 0.2);
+                    ctx.arc(x + size * 0.35, y + size * 0.2, size * 0.2, Math.PI * 3 / 2, Math.PI / 2, false);
+                    ctx.fill();
+                }
+            },
+            'green_beanie': {
+                name: 'Green Beanie', price: 60, color: 'green',
+                drawShape: (ctx, x, y, size) => {
+                    ctx.fillStyle = '#009900'; // Darker green
+                    // Beanie top (rounded)
+                    ctx.beginPath();
+                    ctx.arc(x, y + size * 0.05, size * 0.4, Math.PI, Math.PI * 2, false); // Half circle for top
+                    ctx.fill();
+                    // Beanie base
+                    ctx.fillRect(x - size * 0.4, y + size * 0.05, size * 0.8, size * 0.15);
+                }
+            },
+            'yellow_fedora': {
+                name: 'Yellow Fedora', price: 90, color: 'yellow',
+                drawShape: (ctx, x, y, size) => {
+                    ctx.fillStyle = '#CCCC00'; // Darker yellow
+                    // Brim
+                    ctx.beginPath();
+                    ctx.ellipse(x, y + size * 0.2, size * 0.5, size * 0.1, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    // Crown
+                    ctx.fillRect(x - size * 0.25, y - size * 0.2, size * 0.5, size * 0.4);
+                    // Indentation
+                    ctx.fillStyle = '#AAAA00'; // Slightly darker for indentation effect
+                    ctx.fillRect(x - size * 0.2, y - size * 0.1, size * 0.4, size * 0.1);
+                }
+            },
+            'purple_party_hat': {
+                name: 'Party Hat', price: 40, color: 'purple',
+                drawShape: (ctx, x, y, size) => {
+                    ctx.fillStyle = '#990099'; // Darker purple
+                    // Cone
+                    ctx.beginPath();
+                    ctx.moveTo(x, y - size * 0.5); // Top point
+                    ctx.lineTo(x - size * 0.3, y + size * 0.2); // Bottom left
+                    ctx.lineTo(x + size * 0.3, y + size * 0.2); // Bottom right
+                    ctx.closePath();
+                    ctx.fill();
+                    // Optional: Pom-pom
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(x, y - size * 0.5, size * 0.08, 0, Math.PI * 2, false);
+                    ctx.fill();
+                }
+            }
+        };
+
+        function drawAvatar(canvas = avatarCanvas, avatarData = currentAvatar) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the entire canvas
+
+            const centerX = canvas.width / 2;
+            const baseY = canvas.height / 2;
+            const scale = canvas.width / 200; // Scale based on a reference width of 200px
+
+            // Body parts with Roblox-like blocky proportions
+            // Head
+            ctx.fillStyle = '#FFD8B2'; // Skin color
+            ctx.fillRect(centerX - 30 * scale, baseY - 80 * scale, 60 * scale, 60 * scale); // Head (square)
+
+            // Torso
+            ctx.fillStyle = '#1E90FF'; // Blue shirt
+            ctx.fillRect(centerX - 35 * scale, baseY - 20 * scale, 70 * scale, 80 * scale); // Torso (rectangle)
+
+            // Arms
+            ctx.fillStyle = '#FFD8B2'; // Skin color
+            ctx.fillRect(centerX - 55 * scale, baseY - 20 * scale, 20 * scale, 60 * scale); // Left arm
+            ctx.fillRect(centerX + 35 * scale, baseY - 20 * scale, 20 * scale, 60 * scale); // Right arm
+
+            // Legs
+            ctx.fillStyle = '#555555'; // Dark grey pants
+            ctx.fillRect(centerX - 30 * scale, baseY + 60 * scale, 25 * scale, 80 * scale); // Left leg
+            ctx.fillRect(centerX + 5 * scale, baseY + 60 * scale, 25 * scale, 80 * scale); // Right leg
+
+            // Draw current hat if selected
+            if (avatarData.hatId && hatsData[avatarData.hatId]) {
+                const hat = hatsData[avatarData.hatId];
+                if (hat.drawShape) {
+                    // Adjust hat position relative to the head
+                    const hatX = centerX;
+                    const hatY = baseY - 80 * scale; // Top of the head
+                    hat.drawShape(ctx, hatX, hatY, scale * 100); // Pass a reference size for hat scaling
+                }
+            }
+        }
+
+        function drawHatPreview(canvas, hatId) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the preview canvas
+
+            const hat = hatsData[hatId];
+            if (hat && hat.drawShape) {
+                // Draw the hat shape centered in the preview canvas
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const previewScale = canvas.width / 150; // Scale for preview (smaller than main avatar)
+                hat.drawShape(ctx, centerX, centerY, previewScale * 50); // Pass a reference size for preview scaling
+            }
+        }
+
+        function initAvatarEditor() {
+            // Load saved avatar
+            if (currentUser && currentUser.avatar && currentUser.avatar.hatId) {
+                currentAvatar = { ...currentUser.avatar };
+            } else {
+                currentAvatar = { hatId: 'no_hat', color: 'default' }; // Reset to default if no user or avatar data
+            }
+            drawAvatar(); // Draw initial avatar
+
+            // Render hat buttons and previews
+            hatButtonsContainer.innerHTML = ''; // Clear existing buttons
+            Object.keys(hatsData).forEach(hatId => {
+                const hat = hatsData[hatId];
+                const isOwned = currentUser ? currentUser.ownedItems.includes(hatId) : hat.owned; // Admins/default hats are always owned
+
+                const hatButtonContainer = document.createElement('div');
+                hatButtonContainer.className = 'hat-button-container';
+                hatButtonContainer.setAttribute('data-id', hatId);
+                hatButtonContainer.setAttribute('data-type', hat.type || 'hat'); // 'hat' or 'none'
+                if (hat.color) {
+                    hatButtonContainer.setAttribute('data-color', hat.color);
+                }
+
+                if (!isOwned) {
+                    hatButtonContainer.classList.add('owned-false');
+                } else {
+                     // If owned, allow interaction and set as active if it's the current hat
+                    if (currentAvatar.hatId === hatId) {
+                        hatButtonContainer.style.border = '2px solid gold'; // Highlight selected hat
+                    }
+                }
+
+
+                const hatPreviewCanvas = document.createElement('canvas');
+                hatPreviewCanvas.className = 'hat-preview-canvas';
+                hatPreviewCanvas.width = 90;
+                hatPreviewCanvas.height = 90;
+                drawHatPreview(hatPreviewCanvas, hatId); // Draw shape on preview canvas
+
+                const hatNameSpan = document.createElement('span');
+                hatNameSpan.textContent = hat.name;
+
+                hatButtonContainer.appendChild(hatPreviewCanvas);
+                hatButtonContainer.appendChild(hatNameSpan);
+                hatButtonsContainer.appendChild(hatButtonContainer);
+
+                if (isOwned) {
+                    hatButtonContainer.addEventListener('click', () => {
+                        currentAvatar.hatId = hatId;
+                        drawAvatar(); // Redraw main avatar with new hat
+
+                        // Update active state visuals
+                        document.querySelectorAll('.hat-button-container').forEach(btn => {
+                            btn.style.border = 'none'; // Reset all borders
+                        });
+                        hatButtonContainer.style.border = '2px solid gold'; // Highlight selected
+                    });
+                }
+            });
+
+            // Ensure the initially selected hat is highlighted
+            document.querySelectorAll('.hat-button-container').forEach(btn => {
+                if (btn.dataset.id === currentAvatar.hatId) {
+                    btn.style.border = '2px solid gold';
+                }
+            });
+        }
+
+
+        saveAvatarButton.addEventListener('click', () => {
+            if (currentUser) {
+                currentUser.avatar = { ...currentAvatar };
+                users[currentUser.username].avatar = currentUser.avatar;
+                saveUsers();
+                localStorage.setItem('currentUser', JSON.stringify(currentUser)); // Update current user in local storage
+                showMessage('Avatar saved successfully!');
+                loadProfile(); // Update profile avatar preview
+            } else {
+                showMessage('Please log in to save your avatar!', false);
+            }
+        });
+
+
+        // --- Games Tab Logic ---
+        const gameGrid = document.getElementById('gameGrid');
+        const prevPageButton = document.getElementById('prevPageButton');
+        const nextPageButton = document.getElementById('nextPageButton');
+        const pageInfoSpan = document.getElementById('pageInfo');
+        const uploadGameButton = document.getElementById('uploadGameButton');
+        const gameFileUpload = document.getElementById('gameFileUpload');
+        const gameSearchInput = document.getElementById('gameSearchInput');
+        const searchGamesButton = document.getElementById('searchGamesButton');
+        const gameCategoryLinks = document.querySelectorAll('.games-sidebar .category-list a');
+        const gameTabButtons = document.querySelectorAll('.games-tabs button');
+
+        let games = JSON.parse(localStorage.getItem('games')) || [];
+        let filteredGames = [];
+        let currentPage = 1;
+        const gamesPerPage = 8;
+        let currentCategory = 'All'; // Default category
+        let currentTab = 'Popular'; // Default tab
+
+        function saveGames() {
+            localStorage.setItem('games', JSON.stringify(games));
+        }
+
+        function loadGames(searchQuery = '') {
+            let gamesToFilter = [...games]; // Start with all games
+
+            // Apply category filter
+            if (currentCategory !== 'All') {
+                gamesToFilter = gamesToFilter.filter(game => game.category === currentCategory);
+            }
+
+            // Apply search query filter
+            if (searchQuery) {
+                const lowerCaseQuery = searchQuery.toLowerCase();
+                gamesToFilter = gamesToFilter.filter(game =>
+                    game.title.toLowerCase().includes(lowerCaseQuery) ||
+                    game.description.toLowerCase().includes(lowerCaseQuery)
+                );
+            }
+
+            // Apply tab filter (simplified: for now, just sort by players for Popular)
+            if (currentTab === 'Popular') {
+                gamesToFilter.sort((a, b) => b.players - a.players);
+            } else if (currentTab === 'Top Rated') {
+                // Implement rating system if needed, for now, just sort by title for example
+                gamesToFilter.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (currentTab === 'My Games' && currentUser) {
+                // Filter games uploaded by the current user
+                gamesToFilter = gamesToFilter.filter(game => game.uploader === currentUser.username);
+            } else if (currentTab === 'Friends Playing') {
+                 // Simplified: Show games that friends "might" be playing or just popular ones for now
+                 // Requires more complex friend activity tracking. For now, empty or show popular.
+                 gamesToFilter = []; // Clear for now
+            }
+
+
+            filteredGames = gamesToFilter;
+            currentPage = 1; // Reset to first page for new filters/searches
+            updateGameDisplay();
+        }
+
+        function updateGameDisplay() {
+            gameGrid.innerHTML = ''; // Clear current games
+            const startIndex = (currentPage - 1) * gamesPerPage;
+            const endIndex = startIndex + gamesPerPage;
+            const gamesToDisplay = filteredGames.slice(startIndex, endIndex);
+
+            if (gamesToDisplay.length === 0) {
+                gameGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">No games found in this category/search.</p>';
+            }
+
+            gamesToDisplay.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <img src="${game.thumbnail}" alt="Game Thumbnail">
+                    <div class="game-title">${game.title}</div>
+                    <div class="game-players">${game.players} players online</div>
+                    <div class="game-actions">
+                        <button class="play-button" data-game-id="${game.id}">Play Game</button>
+                    </div>
+                `;
+                gameGrid.appendChild(gameCard);
+            });
+
+            // Update pagination info
+            const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+            pageInfoSpan.textContent = `Page ${currentPage} of ${totalPages || 1}`;
+            prevPageButton.disabled = currentPage === 1;
+            nextPageButton.disabled = currentPage === (totalPages || 1);
+
+            // Add event listeners for play buttons after they are rendered
+            document.querySelectorAll('.play-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const gameId = e.target.dataset.gameId;
+                    const gameToPlay = games.find(g => g.id === gameId);
+                    if (gameToPlay) {
+                        showMessage(`Launching ${gameToPlay.title}...`);
+                        // In a real app, this would redirect or launch a game client
+                    }
+                });
+            });
+        }
+
+        prevPageButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updateGameDisplay();
+            }
+        });
+
+        nextPageButton.addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateGameDisplay();
+            }
+        });
+
+        uploadGameButton.addEventListener('click', () => {
+            if (currentUser) {
+                gameFileUpload.click(); // Trigger the hidden file input
+            } else {
+                showMessage('Please log in to upload games.', false);
+            }
+        });
+
+        gameFileUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const gameData = e.target.result; // This would be the game file content
+                    // For demonstration, we'll just store a placeholder and file name
+                    const newGame = {
+                        id: 'game_' + Date.now(),
+                        title: file.name.split('.').slice(0, -1).join('.') || 'Untitled Game',
+                        description: `A game uploaded by ${currentUser ? currentUser.username : 'a user'}.`,
+                        thumbnail: 'https://via.placeholder.com/180x120?text=Your+Game',
+                        players: Math.floor(Math.random() * 1000), // Random players
+                        category: 'Uploaded', // Assign a category for uploaded games
+                        uploader: currentUser ? currentUser.username : 'Anonymous', // Store uploader
+                        fileUrl: URL.createObjectURL(file), // Create a URL for download
+                        fileName: file.name
+                    };
+                    games.push(newGame);
+                    saveGames();
+                    showMessage(`Game "${newGame.title}" uploaded successfully!`);
+                    loadGames(); // Refresh game list
+                };
+                reader.readAsDataURL(file); // Or readAsText, depending on file type
+            }
+        });
+
+        gameCategoryLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentCategory = e.target.dataset.category;
+                // Remove active class from all category links
+                gameCategoryLinks.forEach(l => l.classList.remove('active'));
+                // Add active class to the clicked link
+                e.target.classList.add('active');
+                loadGames(gameSearchInput.value.trim()); // Reload games with new category and existing search query
+            });
+        });
+
+        // Set 'All Games' as initially active category
+        document.querySelector('.games-sidebar .category-list a[data-category="All"]').classList.add('active');
+
+        gameTabButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                gameTabButtons.forEach(btn => btn.classList.remove('active-game-tab'));
+                e.target.classList.add('active-game-tab');
+                currentTab = e.target.textContent.replace(' Games', '').trim(); // "Popular Games" -> "Popular"
+                loadGames(gameSearchInput.value.trim());
+            });
+        });
+
+        // Initialize with some dummy games if none exist
+        if (games.length === 0) {
+            games.push(
+                { id: 'obby_1', title: 'Super Easy Obby', description: 'A fun and easy obby for beginners!', thumbnail: 'https://via.placeholder.com/180x120?text=Easy+Obby', players: 1234, category: 'Obby', uploader: 'Roblox' },
+                { id: 'tycoon_1', title: 'Pizza Factory Tycoon', description: 'Build your own pizza empire!', thumbnail: 'https://via.placeholder.com/180x120?text=Pizza+Tycoon', players: 876, category: 'Tycoon', uploader: 'Roblox' },
+                { id: 'sim_1', title: 'Pet Simulator X', description: 'Collect and train powerful pets!', thumbnail: 'https://via.placeholder.com/180x120?text=Pet+Sim', players: 2500, category: 'Simulator', uploader: 'Roblox' },
+                { id: 'adv_1', title: 'Mystery Mansion Adventure', description: 'Uncover secrets in a spooky mansion!', thumbnail: 'https://via.placeholder.com/180x120?text=Mansion+Adventure', players: 450, category: 'Adventure', uploader: 'Roblox' },
+                { id: 'rpg_1', title: 'Fantasy Roleplay World', description: 'Live out your medieval fantasies!', thumbnail: 'https://via.placeholder.com/180x120?text=RPG+World', players: 678, category: 'Roleplaying', uploader: 'Roblox' },
+                { id: 'obby_2', title: 'Extreme Lava Obby', description: 'Only the best can survive the lava!', thumbnail: 'https://via.placeholder.com/180x120?text=Lava+Obby', players: 999, category: 'Obby', uploader: 'Roblox' },
+                { id: 'sim_2', title: 'Mining Simulator', description: 'Dig for rare gems and become rich!', thumbnail: 'https://via.placeholder.com/180x120?text=Mining+Sim', players: 1500, category: 'Simulator', uploader: 'Roblox' },
+                { id: 'tycoon_2', title: 'Restaurant Tycoon 2', description: 'Design and manage your dream restaurant!', thumbnail: 'https://via.placeholder.com/180x120?text=Restaurant+Tycoon', players: 700, category: 'Tycoon', uploader: 'Roblox' },
+                { id: 'adv_2', title: 'Jungle Explorer', description: 'Discover hidden temples in the jungle!', thumbnail: 'https://via.placeholder.com/180x120?text=Jungle+Exp', players: 300, category: 'Adventure', uploader: 'Roblox' },
+                { id: 'rpg_2', title: 'Pirate Seas RPG', description: 'Sail the high seas and battle pirates!', thumbnail: 'https://via.placeholder.com/180x120?text=Pirate+RPG', players: 550, category: 'Roleplaying', uploader: 'Roblox' }
+            );
+            saveGames();
+        }
+
+        searchGamesButton.addEventListener('click', () => {
+            const query = gameSearchInput.value.trim();
+            loadGames(query);
+        });
+        gameSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchGamesButton.click();
+            }
+        });
+
+
+        // --- Catalog Logic ---
+        const catalogGrid = document.getElementById('catalogGrid');
+
+        const catalogItems = {
+            'red_top_hat': { name: 'Red Top Hat', price: 50, category: 'hat', id: 'red_top_hat' },
+            'blue_cap': { name: 'Blue Cap', price: 75, category: 'hat', id: 'blue_cap' },
+            'green_beanie': { name: 'Green Beanie', price: 60, category: 'hat', id: 'green_beanie' },
+            'yellow_fedora': { name: 'Yellow Fedora', price: 90, category: 'hat', id: 'yellow_fedora' },
+            'purple_party_hat': { name: 'Party Hat', price: 40, category: 'hat', id: 'purple_party_hat' },
+            'gold_chain': { name: 'Gold Chain', price: 120, category: 'accessory', id: 'gold_chain', thumbnail: 'https://via.placeholder.com/120x100?text=Gold+Chain' },
+            'cool_shades': { name: 'Cool Shades', price: 80, category: 'accessory', id: 'cool_shades', thumbnail: 'https://via.placeholder.com/120x100?text=Cool+Shades' }
+        };
+
+        function renderCatalog() {
+            catalogGrid.innerHTML = '';
+            Object.values(catalogItems).forEach(item => {
+                const isOwned = currentUser ? currentUser.ownedItems.includes(item.id) : false;
+
+                const itemCard = document.createElement('div');
+                itemCard.className = 'catalog-item-card';
+                itemCard.innerHTML = `
+                    <img src="${hatsData[item.id] ? '' : item.thumbnail || 'https://via.placeholder.com/120x100?text=Item'} " alt="${item.name}">
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">
+                            <span class="robux-icon">R</span>
+                            ${item.price}
+                        </div>
+                        <button class="buy-button" data-item-id="${item.id}" ${isOwned ? 'disabled' : ''}>
+                            ${isOwned ? 'Owned' : 'Buy Now'}
+                        </button>
+                        ${isOwned ? '<span class="owned-tag">OWNED</span>' : ''}
+                    </div>
+                `;
+                catalogGrid.appendChild(itemCard);
+
+                // For hats, draw them directly onto a canvas element within the card
+                const imgElement = itemCard.querySelector('img');
+                if (hatsData[item.id] && hatsData[item.id].drawShape) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 120;
+                    canvas.height = 100;
+                    const ctx = canvas.getContext('2d');
+                    // Draw the hat shape on this canvas
+                    const hat = hatsData[item.id];
+                    const centerX = canvas.width / 2;
+                    const centerY = canvas.height / 2;
+                    const scale = canvas.width / 150; // Reference size for drawing
+                    hat.drawShape(ctx, centerX, centerY, scale * 50); // Use a smaller size for catalog preview
+                    imgElement.replaceWith(canvas); // Replace the img with the canvas
+                }
+
+
+                const buyButton = itemCard.querySelector('.buy-button');
+                buyButton.addEventListener('click', () => {
+                    if (!currentUser) {
+                        showMessage('Please log in to buy items!', false);
+                        return;
+                    }
+
+                    if (isOwned) {
+                        showMessage('You already own this item.', false);
+                        return;
+                    }
+
+                    if (currentUser.robux >= item.price) {
+                        currentUser.robux -= item.price;
+                        currentUser.ownedItems.push(item.id);
+                        users[currentUser.username].robux = currentUser.robux;
+                        users[currentUser.username].ownedItems = currentUser.ownedItems;
+                        saveUsers();
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser)); // Update current user in local storage
+                        loadRobuxBalance(); // Update Robux display
+                        showMessage(`You bought ${item.name} for ${item.price} Robux!`);
+                        renderCatalog(); // Re-render catalog to update ownership status
+                        initAvatarEditor(); // Re-init avatar editor to enable owned hats
+                        loadProfile(); // Update profile inventory
+                    } else {
+                        showMessage('Not enough Robux!', false);
+                    }
+                });
+            });
+        }
+
+
+        // --- Profile Logic ---
+        const profileUsernameDisplay = document.getElementById('profileUsernameDisplay');
+        const profileRobuxBalanceSpan = document.getElementById('profileRobuxBalance');
+        const profileAvatarPreviewCanvas = document.getElementById('profileAvatarPreview');
+        const profileInventoryGrid = document.getElementById('profileInventoryGrid');
+
+        function loadProfile() {
+            if (currentUser) {
+                profileUsernameDisplay.textContent = currentUser.username;
+                profileRobuxBalanceSpan.textContent = currentUser.robux;
+
+                // Draw avatar preview on profile page
+                drawAvatar(profileAvatarPreviewCanvas, currentUser.avatar);
+
+                // Display inventory
+                profileInventoryGrid.innerHTML = '';
+                if (currentUser.ownedItems && currentUser.ownedItems.length > 0) {
+                    currentUser.ownedItems.forEach(itemId => {
+                        const item = catalogItems[itemId] || hatsData[itemId]; // Can be catalog item or hat
+                        if (item) {
+                            const inventoryItemDiv = document.createElement('div');
+                            inventoryItemDiv.className = 'profile-inventory-item';
+                            inventoryItemDiv.innerHTML = `
+                                <img src="${item.thumbnail || 'https://via.placeholder.com/80x60?text=Item'}" alt="${item.name}">
+                                <span>${item.name}</span>
+                            `;
+                            profileInventoryGrid.appendChild(inventoryItemDiv);
+
+                            // For hats in inventory, draw them on a canvas instead of an image
+                            const imgElement = inventoryItemDiv.querySelector('img');
+                            if (hatsData[itemId] && hatsData[itemId].drawShape) {
+                                const canvas = document.createElement('canvas');
+                                canvas.width = 80;
+                                canvas.height = 60;
+                                const ctx = canvas.getContext('2d');
+                                const hat = hatsData[itemId];
+                                const centerX = canvas.width / 2;
+                                const centerY = canvas.height / 2;
+                                const scale = canvas.width / 100; // Reference size for drawing
+                                hat.drawShape(ctx, centerX, centerY, scale * 30); // Use a smaller size for inventory preview
+                                imgElement.replaceWith(canvas); // Replace the img with the canvas
+                            }
+                        }
+                    });
+                } else {
+                    profileInventoryGrid.innerHTML = '<p>Your inventory is empty.</p>';
+                }
+
+            } else {
+                profileUsernameDisplay.textContent = 'Guest';
+                profileRobuxBalanceSpan.textContent = 'N/A';
+                profileAvatarPreviewCanvas.getContext('2d').clearRect(0, 0, profileAvatarPreviewCanvas.width, profileAvatarPreviewCanvas.height); // Clear avatar
+                profileInventoryGrid.innerHTML = '<p>Log in to view your inventory.</p>';
+            }
+        }
+
+
+        // --- Friends Logic ---
+        const myFriendList = document.getElementById('myFriendList');
+        const friendsCountSpan = document.getElementById('friendsCount');
+        const addFriendInput = document.getElementById('addFriendInput');
+        const addFriendButton = document.getElementById('addFriendButton');
+
+        function renderFriends() {
+            myFriendList.innerHTML = '';
+            if (currentUser && currentUser.friends && currentUser.friends.length > 0) {
+                friendsCountSpan.textContent = currentUser.friends.length;
+                currentUser.friends.forEach(friendUsername => {
+                    const friendItem = document.createElement('li');
+                    friendItem.innerHTML = `
+                        <span>${friendUsername}</span>
+                        <button data-friend="${friendUsername}">Unfriend</button>
+                    `;
+                    myFriendList.appendChild(friendItem);
+                });
+            } else {
+                friendsCountSpan.textContent = 0;
+                myFriendList.innerHTML = '<li>No friends added yet.</li>';
+            }
+
+            // Add unfriend listener
+            document.querySelectorAll('#myFriendList button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const friendToRemove = e.target.dataset.friend;
+                    removeFriend(friendToRemove);
+                });
+            });
+        }
+
+        addFriendButton.addEventListener('click', () => {
+            if (!currentUser) {
+                showMessage('Please log in to add friends!', false);
+                return;
+            }
+
+            const friendUsername = addFriendInput.value.trim();
+            if (friendUsername === '') {
+                showMessage('Please enter a username.', false);
+                return;
+            }
+            if (friendUsername === currentUser.username) {
+                showMessage('You cannot add yourself as a friend!', false);
+                return;
+            }
+            if (currentUser.friends.includes(friendUsername)) {
+                showMessage(`${friendUsername} is already your friend.`, false);
+                return;
+            }
+            if (!users[friendUsername]) {
+                showMessage(`User "${friendUsername}" not found.`, false);
+                return;
+            }
+
+            // Add to current user's friends list
+            currentUser.friends.push(friendUsername);
+            users[currentUser.username].friends = currentUser.friends;
+            saveUsers();
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showMessage(`${friendUsername} added to your friends!`);
+            addFriendInput.value = '';
+            renderFriends();
+
+            // Optional: Add current user to friend's list (for two-way friendship)
+            if (users[friendUsername]) {
+                if (!users[friendUsername].friends.includes(currentUser.username)) {
+                    users[friendUsername].friends.push(currentUser.username);
+                    saveUsers();
+                }
+            }
+        });
+
+        function removeFriend(friendUsername) {
+            if (!currentUser) return;
+            currentUser.friends = currentUser.friends.filter(f => f !== friendUsername);
+            users[currentUser.username].friends = currentUser.friends;
+            saveUsers();
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showMessage(`${friendUsername} removed from your friends.`, false);
+            renderFriends();
+
+            // Optional: Remove current user from friend's list
+            if (users[friendUsername]) {
+                users[friendUsername].friends = users[friendUsername].friends.filter(f => f !== currentUser.username);
+                saveUsers();
+            }
+        }
+
+
+        // --- Chat Logic (Simplified) ---
+        const chatMessagesDiv = document.getElementById('chatMessages');
+        const chatInputForm = document.getElementById('chatInputForm');
+        const chatMessageInput = document.getElementById('chatMessageInput');
+
+        let chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+
+        function saveChatMessages() {
+            localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+        }
+
+        function renderChatMessages() {
+            chatMessagesDiv.innerHTML = '';
+            chatMessages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'chat-message';
+                if (currentUser && msg.username === currentUser.username) {
+                    messageElement.classList.add('sent');
+                } else {
+                    messageElement.classList.add('received');
+                }
+                messageElement.innerHTML = `<div class="username">${msg.username}:</div><div>${msg.text}</div>`;
+                chatMessagesDiv.appendChild(messageElement);
+            });
+            // Scroll to the bottom
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        }
+
+        chatInputForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!currentUser) {
+                showMessage('Please log in to chat!', false);
+                return;
+            }
+
+            const messageText = chatMessageInput.value.trim();
+            if (messageText) {
+                const newMessage = {
+                    username: currentUser.username,
+                    text: messageText,
+                    timestamp: new Date().toISOString()
+                };
+                chatMessages.push(newMessage);
+                saveChatMessages();
+                renderChatMessages();
+                chatMessageInput.value = ''; // Clear input
+            }
+        });
+
+
+        // --- Initial Load Functions ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load current user first
+            loadCurrentUser();
+
+            // Initial loads for all features
+            loadRobuxBalance(); // Load Robux balance first
+            initAvatarEditor(); // Initialize Avatar Editor (will load saved avatar and enable/disable hats)
+            loadProfile(); // Load Profile data (including avatar preview and inventory)
+            renderCatalog(); // Render Catalog items (showing ownership status)
+            renderFriends(); // Render Friends list
+            renderChatMessages(); // Render Chat messages
+            // If Games tab is active on load, load games (redundant if default is Home)
+            if (gamesTab.classList.contains('active')) {
+                loadGames();
+            }
+        });
+    </script>
+</body>
+</html>
